@@ -4,11 +4,6 @@ if(VALIDA_MODULO!=1){
 	exit();
 }
 
-if(!isset($extra) || !is_array($extra)){
-	$extra=array();
-}
-
-
 $extra['moduloExemplo']=array(
 	
 	'nome'		=> "Modulo extra (exemplo)",
@@ -41,19 +36,21 @@ function extra_moduloExemplo_ativar(){
 function extra_moduloExemplo_update(){
 	# CODIGO ao ATUALIZAR DA VERSÃO anterior para mais recente
 	
-	global $banco;
+	global $banco, $extra;
 	
 	
-	$sql=mysqli_query($banco->con,"CREATE TABLE IF NOT EXISTS mod_moduloExemplo (
+	/*$sql=mysqli_query($banco->con,"CREATE TABLE IF NOT EXISTS mod_moduloExemplo (
   id INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   id_servidor INT( 11 ) NOT NULL ,
   parametro TEXT NOT NULL ,
   id_produto INT( 11 ) NOT NULL 
-);");
+);");*/
+	
+	$sql=true;
 	
 	
 	if($sql){	
-		$sql=$banco->query("UPDATE modulosextras SET versao='2.0' WHERE modulo='moduloExemplo' LIMIT 1;");
+		$sql=$banco->query("UPDATE modulosextras SET versao='".$extra['moduloExemplo']['versao']."' WHERE modulo='moduloExemplo' LIMIT 1;");
 		return true;
 	}else{
 		return false;	
